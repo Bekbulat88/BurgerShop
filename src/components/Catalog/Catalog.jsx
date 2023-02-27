@@ -22,23 +22,23 @@ export const Catalog = () => {
     <section className={style.catalog}>
       <Container className={style.container}>
         <Order />
-
         <div className={style.wrapper}>
           <h2 className={style.title}>{category[activeCategory]?.rus}</h2>
 
           <div className={style.wrap_list}>
-            <ul className={style.list}>
-              {products.map((elem) => {
-                return (
-                  <li key={elem.id}>
-                    <CatalogProduct elem={elem} />
-                  </li>
-                );
-              })}
-              {/* <li className={style.item}>
-                <CatalogProduct />
-              </li> */}
-            </ul>
+            {products.length ? (
+              <ul className={style.list}>
+                {products.map((elem) => {
+                  return (
+                    <li key={elem.id}>
+                      <CatalogProduct elem={elem} />
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              'К сожалению товаров в данной категории нет'
+            )}
           </div>
         </div>
       </Container>

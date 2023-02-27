@@ -2,53 +2,42 @@
 // import './goods.css';
 // import './order.css';
 
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { orderRequestAsync } from '../../store/order/orderSlice';
 import { OrderGoods } from '../OrderGoods/OrderGoods';
 import style from './Order.module.css';
-const orderList = ['Супер сырный', 'Картошка фри', 'Жгучий хот-дог'];
+// const orderList = ['Супер сырный', 'Картошка фри', 'Жгучий хот-дог'];
 
 export const Order = () => {
+  const { totalPrice, totalCount, orderGoods, orderList } = useSelector((state) => state.order);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(orderRequestAsync());
+  }, [orderList.length]);
+
   return (
     <div className="order">
       <section className={style.wrapper}>
         <div className={style.header} tabIndex="0" role="button">
           <h2 className={style.title}>Корзина</h2>
 
-          <span className={style.count}>4</span>
+          <span className={style.count}>{totalCount}</span>
         </div>
 
         <div className={style.wrap_list}>
           <ul className={style.list}>
-            {orderList.map((elem, i) => {
-              return <OrderGoods goodsTitle={elem} key={i} />;
+            {orderGoods.map((elem) => {
+              return <OrderGoods {...elem} key={elem.id} />;
             })}
-
-            {/* <li className="item">
-              <img className="image" src="img/burger_1.jpg" alt="Супер сырный" />
-
-              <div className="goods">
-                <h3 className="goods__title">Супер сырный</h3>
-
-                <p className="goods__weight">512г</p>
-
-                <p className="goods__price">
-                  1279
-                  <span className="currency">₽</span>
-                </p>
-              </div>
-
-              <div className="count">
-                <button className="count__minus">-</button>
-                <p className="count__amount">1</p>
-                <button className="count__plus">+</button>
-              </div>
-            </li> */}
           </ul>
 
           <div className={style.total}>
             <p>Итого</p>
             <p>
-              <span className={style.amount}>1279</span>
-              <span className={style.currency}>₽</span>
+              <span className={style.amount}>{totalPrice}</span>
+              <span className={style.currency}>&nbsp; ₽</span>
             </p>
           </div>
 

@@ -1,7 +1,10 @@
-import { API_URI, POSTFIX } from '../../const';
+import { useDispatch } from 'react-redux';
+import { API_URI } from '../../const';
+import { addProductToCart } from '../../store/order/orderSlice';
 import style from './CatalogProduct.module.css';
 
 export const CatalogProduct = (props) => {
+  const dispatch = useDispatch();
   return (
     <article className={style.product}>
       <img src={`${API_URI}/${props.elem.image}`} alt={props.elem.title} className={style.image} />
@@ -17,7 +20,13 @@ export const CatalogProduct = (props) => {
 
       <p className={style.weight}>{props.elem.weight}г</p>
 
-      <button className={style.add} type="button">
+      <button
+        className={style.add}
+        type="button"
+        onClick={() => {
+          dispatch(addProductToCart({ id: props.elem.id }));
+        }}
+      >
         Добавить
       </button>
     </article>
