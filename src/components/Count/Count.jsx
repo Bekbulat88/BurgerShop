@@ -1,20 +1,20 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addProductToCart, removeProductFromCart } from '../../store/order/orderSlice';
 import style from './Count.module.css';
 
-export const Count = (props) => {
-  let [count, setCount] = useState(props.count);
+export const Count = ({ count, id }) => {
+  const dispatch = useDispatch();
   const increment = () => {
-    setCount((count) => count + 1);
+    dispatch(addProductToCart({ id }));
   };
   const decrement = () => {
-    if (count > 1) {
-      setCount((count) => count - 1);
-    }
+    dispatch(removeProductFromCart({ id }));
   };
 
   return (
     <div className={style.count}>
-      <button className={style.minus} onClick={decrement} disabled={count === 1}>
+      <button className={style.minus} onClick={decrement}>
         -
       </button>
       <p className={style.amount}>{count}</p>

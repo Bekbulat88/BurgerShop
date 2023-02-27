@@ -1,22 +1,24 @@
+import { useSelector } from 'react-redux';
+import { API_URI } from '../../const';
 import { Count } from '../Count/Count';
 import style from './OrderGoods.module.css';
 
-export const OrderGoods = (props) => {
+export const OrderGoods = ({ id, title, image, weight, price, count }) => {
   return (
-    <li key={props.i} className={style.item}>
-      <img className={style.image} src="img/burger_1.jpg" alt={props.goodsTitle} />
+    <li key={id} className={style.item}>
+      <img className={style.image} src={`${API_URI}/${image}`} alt={title} />
 
       <div className={style.goods}>
-        <h3 className={style.title}>{props.goodsTitle}</h3>
+        <h3 className={style.title}>{title}</h3>
 
-        <p className={style.weight}>512г</p>
+        <p className={style.weight}>{weight}г</p>
 
         <p className={style.price}>
-          1279
-          <span className={style.currency}>₽</span>
+          {price}
+          <span className={style.currency}>&nbsp;тг</span>
         </p>
       </div>
-      <Count count={1} />
+      <Count count={count} id={id} />
     </li>
   );
 };
