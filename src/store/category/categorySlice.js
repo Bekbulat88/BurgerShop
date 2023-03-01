@@ -8,11 +8,13 @@ const initialState = {
   activeCategory: 0,
 };
 
-export const categoryRequestAsync = createAsyncThunk('category/fetch', () => {
-  return fetch(`${API_URI}${POSTFIX}/category`)
-    .then((res) => res.json())
-
-    .catch((error) => ({ error }));
+export const categoryRequestAsync = createAsyncThunk('category/fetch', async () => {
+  // return fetch(`${API_URI}${POSTFIX}/category`)
+  //   .then((req) => req.json())
+  //   .catch((error) => ({ error }));
+  let promise = await fetch(`${API_URI}${POSTFIX}/category`);
+  let response = await promise.json();
+  return response;
 });
 
 const categorySlice = createSlice({
