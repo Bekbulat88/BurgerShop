@@ -9,7 +9,6 @@ import style from './Navigation.module.css';
 export const Navigation = () => {
   const { category, activeCategory } = useSelector((state) => {
     return state.category;
-    console.log(category);
   });
 
   const dispatch = useDispatch();
